@@ -18,5 +18,3 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     if not city:
         city = random.choice(CITIES)
     return random.sample(BUSINESSES[city], n)
-
-    #poep
