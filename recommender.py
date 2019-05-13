@@ -1,9 +1,8 @@
 from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 
 import random
-henk = 'Restaurants'
-piet = BUSINESSES['westlake']
-for x in piet:
+
+for x in BUSINESSES['westlake']:
     for j in x['categories'].split(','):
         if j == 'Restaurants':
             print(x)
