@@ -6,6 +6,7 @@ for x in BUSINESSES['westlake']:
     for j in x['categories'].split(','):
         if j == 'Restaurants':
             lijst.append(x)
+print(lijst)
 
 
 
