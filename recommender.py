@@ -33,4 +33,8 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
 
 
 for i in BUSINESSES['sun city']:
-    print(i['name']
+    hallo = i['categories']
+    test = hallo.split(',')
+    for j in test:
+        if j == 'Restaurants':
+            print(j)
