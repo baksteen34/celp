@@ -20,3 +20,8 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     return random.sample(BUSINESSES[city], n)
 
     #poep
+
+
+
+for i in BUSINESSES['sun city']:
+    print(i['name']
