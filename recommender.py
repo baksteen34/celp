@@ -9,9 +9,8 @@ for x in BUSINESSES['westlake']:
 print(lijst)
 
 for i in lijst:
-    for j in i['attributes']:
-        print(j)
-
+    test = i['attributes'].get("Ambience")
+    print(test)
 
 
 
