@@ -4,9 +4,7 @@ import random
 
 piet = BUSINESSES['westlake']
 for x in piet:
-    print(x['name'])
-
-
+    print('henk', x['categories'])
 
 
 
