@@ -6,8 +6,9 @@ piet = BUSINESSES['westlake']
 for x in piet:
     hallo = x['categories']
     test = hallo.split(',')
-    for j in test:
-        print(j)
+    for j in x['categories'].split(','):
+        if j == 'Restaurants':
+            print(x)
 
 
 
