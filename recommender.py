@@ -1,11 +1,11 @@
 from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 
 import random
-
+lijst = []
 for x in BUSINESSES['westlake']:
     for j in x['categories'].split(','):
         if j == 'Restaurants':
-            print(x)
+            lijst.append(x)
 
 
 
