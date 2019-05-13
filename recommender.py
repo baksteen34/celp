@@ -26,3 +26,13 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     if not city:
         city = random.choice(CITIES)
     return random.sample(BUSINESSES[city], n)
+<<<<<<< HEAD
+
+    #poep
+
+
+
+for i in BUSINESSES['sun city']:
+    print(i['name']
+=======
+>>>>>>> 3e5e018fa590add07a9e8fd2c22db8b458a7dd1b
