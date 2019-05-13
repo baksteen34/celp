@@ -4,7 +4,11 @@ import random
 
 piet = BUSINESSES['westlake']
 for x in piet:
-    print('henk', x['categories'])
+    hallo = x['categories']
+    test = hallo.split(',')
+    for j in test:
+        print(j)
+
 
 
 
@@ -26,18 +30,3 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     if not city:
         city = random.choice(CITIES)
     return random.sample(BUSINESSES[city], n)
-<<<<<<< HEAD
-
-
-    #poep
-
-
-
-for i in BUSINESSES['sun city']:
-    hallo = i['categories']
-    test = hallo.split(',')
-    for j in test:
-        if j == 'Restaurants':
-            print(j)
-=======
->>>>>>> 9a196b9fb2b19e3937d4931fb639fc4113a601a1
