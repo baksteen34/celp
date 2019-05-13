@@ -2,6 +2,15 @@ from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 
 import random
 
+piet = BUSINESSES['westlake']
+for x in piet:
+    print(x['name'])
+
+
+
+
+
+
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
     Returns n recommendations as a list of dicts.
@@ -15,6 +24,7 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             adress:str
         }
     """
+
     if not city:
         city = random.choice(CITIES)
     return random.sample(BUSINESSES[city], n)
