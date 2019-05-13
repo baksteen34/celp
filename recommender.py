@@ -1,10 +1,12 @@
 from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 
 import random
-
+henk = 'Restaurants'
 piet = BUSINESSES['westlake']
 for x in piet:
-    print('henk', x['categories'])
+    henk = x['categories']
+    for y in henk:
+        print(y)
 
 
 
