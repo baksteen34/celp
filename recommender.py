@@ -10,9 +10,8 @@ print(lijst)
 
 print(lijst)
 for i in lijst:
-    for j in i['attributes']:
-        print(j)
-
+    test = i['attributes'].get("Ambience")
+    print(test)
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
