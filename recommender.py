@@ -9,8 +9,9 @@ for x in BUSINESSES['westlake']:
 print(lijst)
 
 
-
-
+for i in lijst:
+    for j in i['attributes']:
+        print(j)
 
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
