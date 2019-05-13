@@ -4,9 +4,17 @@ import random
 henk = 'Restaurants'
 piet = BUSINESSES['westlake']
 for x in piet:
+<<<<<<< HEAD
     henk = x['categories']
     for y in henk:
         print(y)
+=======
+    hallo = x['categories']
+    test = hallo.split(',')
+    for j in test:
+        print(j)
+
+>>>>>>> ebdf7a71ccd7dc4461a3f2fdcf51f32411c009d2
 
 
 
