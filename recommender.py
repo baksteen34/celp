@@ -7,7 +7,7 @@ for x in BUSINESSES['westlake']:
         if j == 'Restaurants':
             lijst.append(x)
 
-
+print(lijst)
 for i in lijst:
     for j in i['attributes']:
         print(j)
