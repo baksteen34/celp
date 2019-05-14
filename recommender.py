@@ -1,9 +1,10 @@
 from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
-
+from IPython.display import display
 import random
 import numpy as np
 import ast
 import pandas as pd
+
 lijst = []
 # filter door de BUSINESSES, haal geopende Restaurants eruit
 for x in BUSINESSES['westlake']:
@@ -33,7 +34,7 @@ def filter(categorie, subcategorie):
 data = filter('attributes', "Ambience")
 data2 = pd.Series(data)
 drie = data2.to_frame('Ambience')
-print(drie)
+display(drie)
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
