@@ -27,22 +27,13 @@ def filter(categorie, subcategorie):
             for k,v in test.items():
                 if v == True:
                     data[i['business_id']].append(k)
-
-
         except:
             continue
     return data
-data = filter('attributes', "GoodForMeal")
-print(data)
-for i in data:
-    print(i, data[i])
-
-
-
-
-
-
-
+data = filter('attributes', "Ambience")
+data2 = pd.Series(data)
+drie = data2.to_frame('Ambience')
+print(drie)
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
