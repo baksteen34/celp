@@ -3,6 +3,7 @@ from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 import random
 import numpy as np
 import ast
+import pandas as pd
 lijst = []
 # filter door de BUSINESSES, haal geopende Restaurants eruit
 for x in BUSINESSES['westlake']:
@@ -17,16 +18,25 @@ print(lijst)
 
 # filter ambiances uit lijst
 def filter(categorie, subcategorie):
+    data=dict()
     for i in lijst:
         try:
             test = i[categorie].get(subcategorie)
             test = ast.literal_eval(test)
+            data[i['business_id']] = []
             for k,v in test.items():
                 if v == True:
-                    print(i['name'], k,v)
+                    data[i['business_id']].append(k)
+
+
         except:
             continue
-filter('attributes', "Ambience")
+    return data
+data = filter('attributes', "GoodForMeal")
+print(data)
+for i in data:
+    print(i, data[i])
+
 
 
 
