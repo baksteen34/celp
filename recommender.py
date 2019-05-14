@@ -2,6 +2,7 @@ from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 
 import random
 import numpy as np
+import ast
 lijst = []
 for x in BUSINESSES['westlake']:
     for j in x['categories'].split(','):
@@ -9,10 +10,16 @@ for x in BUSINESSES['westlake']:
             lijst.append(x)
 
 for i in lijst:
-    test = i['attributes'].get("Ambience")
-    test = test.split(',')
-    for j in test:
-        print(j)
+    try:
+        test = i['attributes'].get("Ambience")
+        test = ast.literal_eval(test)
+        for k,v in test.items():
+            if v == True:
+                print(i['name'], k,v)
+    except:
+        continue
+
+
 
 
 
