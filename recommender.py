@@ -1,6 +1,7 @@
 from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 
 import random
+import numpy as np
 lijst = []
 for x in BUSINESSES['westlake']:
     for j in x['categories'].split(','):
@@ -9,7 +10,10 @@ for x in BUSINESSES['westlake']:
 
 for i in lijst:
     test = i['attributes'].get("Ambience")
-    print(test)
+    test = test.split(',')
+    for j in test:
+        print(j)
+
 
 
 
