@@ -34,10 +34,7 @@ def filter(categorie, subcategorie):
 data = filter('attributes', "Ambience")
 data2 = pd.Series(data)
 drie = data2.to_frame('Ambience').reset_index()
-<<<<<<< HEAD
-=======
 drie = drie.rename(columns = {'index' : 'business_id'})
->>>>>>> 645e80dafadf7ab59f3749b67e880f02e78baa71
 display(drie)
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
