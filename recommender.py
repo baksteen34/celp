@@ -33,7 +33,7 @@ def filter(categorie, subcategorie):
     return data
 data = filter('attributes', "Ambience")
 data2 = pd.Series(data)
-drie = data2.to_frame('Ambience')
+drie = data2.to_frame('Ambience').reset_index()
 display(drie)
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
