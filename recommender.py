@@ -100,25 +100,8 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             adress:str
         }
     """
-<<<<<<< HEAD
-    hallo = dict()
-    for i in df_similarity_categories:
-        hallo[i] = df_similarity_categories[business_id][i]
-    print(hallo)
-    test = sorted(hallo, key=hallo.get, reverse=True)
-    lijstje = []
-    for i in test:
-        for x in BUSINESSES['westlake']:
-            if i == x['business_id']:
-                print(x)
-                lijstje.append(x)
-    # print(lijstje)
-
-
-=======
     # print(lijstje)
     return(lijstje)
->>>>>>> 0804a2a111c1d4781eee52c4c283399e44234bd5
 
 
     #if not city:
