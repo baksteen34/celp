@@ -100,6 +100,7 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             adress:str
         }
     """
+<<<<<<< HEAD
     # print(lijstje)
     return(lijstje)
 
@@ -109,5 +110,8 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     #return random.sample(BUSINESSES[city], n)
     # print(len(random.sample(BUSINESSES['westlake'], n)))
     # print(len(lijstje))
+=======
+    return(lijstje)
+>>>>>>> 5baea50d42df2a2f7651ef788392aab7e9582386
 
 recommend(None, 'wTNWq7jrCZD1q2hSjUtTXg')
