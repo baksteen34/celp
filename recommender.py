@@ -15,7 +15,6 @@ for x in BUSINESSES['westlake']:
     for j in lijst:
         if j['is_open'] == 0:
             lijst.remove(x)
-print(lijst)
 
 # filter ambiances uit lijst
 def filter(categorie, subcategorie):
@@ -35,7 +34,7 @@ data = filter('attributes', "Ambience")
 data2 = pd.Series(data)
 drie = data2.to_frame('Ambience').reset_index()
 drie = drie.rename(columns = {'index' : 'business_id'})
-display(drie)
+
 def extract_subcategories(categorie):
 
     categorie_m = categorie.apply(lambda row: pd.Series([row['business_id']] + row['Ambience']), axis=1)
@@ -49,9 +48,7 @@ def pivot_categories(df):
     return df.pivot_table(index = 'business_id', columns = 'Ambience', aggfunc = 'size', fill_value=0)
 
 df_categories = extract_subcategories(drie)
-display(df_categories)
 df_utility_matrix = pivot_categories(df_categories)
-display(df_utility_matrix)
 
 def create_similarity_matrix_categories(matrix):
     """Create a  """
@@ -62,7 +59,6 @@ def create_similarity_matrix_categories(matrix):
     m3 = np.minimum(m2, m2.T)
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
 df_similarity_categories = create_similarity_matrix_categories(df_utility_matrix)
-display(df_similarity_categories.head())
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
@@ -77,7 +73,18 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             adress:str
         }
     """
+    hallo = dict()
+    for i in df_similarity_categories:
+        hallo[i] = df_similarity_categories[business_id][i]
+    test = sorted(hallo, key=hallo.get, reverse=True)
+    for i in test:
+        for x in BUSINESSES['westlake']:
+            if i == x['business_id']:
+                print(x)
+            
 
-    if not city:
-        city = random.choice(CITIES)
-    return random.sample(BUSINESSES[city], n)
+    #if not city:
+    #    city = random.choice(CITIES)
+    #return random.sample(BUSINESSES[city], n)
+
+recommend(None, 'wTNWq7jrCZD1q2hSjUtTXg')
