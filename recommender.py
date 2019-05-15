@@ -16,7 +16,7 @@ for x in BUSINESSES['westlake']:
         if j['is_open'] == 0:
             lijst.remove(x)
 
-# filter ambiances uit lijst
+# filter subcategorieen uit lijst
 def filter(categorie, subcategorie):
     data=dict()
     for i in lijst:
@@ -30,13 +30,23 @@ def filter(categorie, subcategorie):
         except:
             continue
     return data
-data = filter('attributes', "Ambience")
-data2 = pd.Series(data)
-drie = data2.to_frame('Ambience').reset_index()
-drie = drie.rename(columns = {'index' : 'business_id'})
+    # maak dataframe gefilterd op subcategorie
+def create_filter_dataframe(categorie, subcategorie):
+    data = filter(categorie, subcategorie)
+    data2 = pd.Series(data)
+    drie = data2.to_frame(subcategorie).reset_index()
+    drie = drie.rename(columns = {'index' : 'business_id'})
+    return(drie)
+
+create_filter_dataframe('attributes', 'Ambience')
 
 def extract_subcategories(categorie):
-
+    """Creates a utility matrix for subcategories
+    Arguments:
+    df -- a dataFrame containing at least the columns 'business_id' and 'subcategorie'
+    Output:
+    a matrix containing a rating in each cell
+    """
     categorie_m = categorie.apply(lambda row: pd.Series([row['business_id']] + row['Ambience']), axis=1)
     stack_categorie = categorie_m.set_index(0).stack()
     df_stack_categorie = stack_categorie.to_frame()
@@ -45,9 +55,16 @@ def extract_subcategories(categorie):
     return df_stack_categorie.reset_index()[['business_id', 'Ambience']]
 
 def pivot_categories(df):
+    """Creates a adjusted(/soft) cosine similarity matrix.
+    Arguments:
+    matrix -- a utility matrix
+    Notes:
+    Missing values are set to 0. This is technically not a 100% correct, but is more convenient
+    for computation and does not have a big effect on the outcome.
+    """
     return df.pivot_table(index = 'business_id', columns = 'Ambience', aggfunc = 'size', fill_value=0)
 
-df_categories = extract_subcategories(drie)
+df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience'))
 df_utility_matrix = pivot_categories(df_categories)
 
 def create_similarity_matrix_categories(matrix):
@@ -77,14 +94,19 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     for i in df_similarity_categories:
         hallo[i] = df_similarity_categories[business_id][i]
     test = sorted(hallo, key=hallo.get, reverse=True)
+    lijstje = []
     for i in test:
         for x in BUSINESSES['westlake']:
             if i == x['business_id']:
-                print(x)
-            
+                lijstje.append(x)
+    # print(lijstje)
+    return(lijstje[:-1])
+
 
     #if not city:
     #    city = random.choice(CITIES)
     #return random.sample(BUSINESSES[city], n)
+    # print(len(random.sample(BUSINESSES['westlake'], n)))
+    # print(len(lijstje))
 
 recommend(None, 'wTNWq7jrCZD1q2hSjUtTXg')
