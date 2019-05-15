@@ -77,6 +77,16 @@ def create_similarity_matrix_categories(matrix):
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
 df_similarity_categories = create_similarity_matrix_categories(df_utility_matrix)
 
+hallo = dict()
+for i in df_similarity_categories:
+    hallo[i] = df_similarity_categories['wTNWq7jrCZD1q2hSjUtTXg'][i]
+test = sorted(hallo, key=hallo.get, reverse=True)
+lijstje = []
+for i in test:
+    for x in BUSINESSES['westlake']:
+        if i == x['business_id']:
+            lijstje.append(x)
+
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
     Returns n recommendations as a list of dicts.
@@ -90,17 +100,8 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             adress:str
         }
     """
-    hallo = dict()
-    for i in df_similarity_categories:
-        hallo[i] = df_similarity_categories[business_id][i]
-    test = sorted(hallo, key=hallo.get, reverse=True)
-    lijstje = []
-    for i in test:
-        for x in BUSINESSES['westlake']:
-            if i == x['business_id']:
-                lijstje.append(x)
     # print(lijstje)
-    return(lijstje[:-1])
+    return(lijstje)
 
 
     #if not city:
