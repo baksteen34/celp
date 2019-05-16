@@ -76,17 +76,7 @@ def create_similarity_matrix_categories(matrix):
     m3 = np.minimum(m2, m2.T)
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
 df_similarity_categories = create_similarity_matrix_categories(df_utility_matrix)
-def recommendations(business_id):
-    hallo = dict()
-    for i in df_similarity_categories:
-        hallo[i] = df_similarity_categories[business_id][i]
-    test = sorted(hallo, key=hallo.get, reverse=True)
-    lijstje = []
-    for i in test:
-        for x in BUSINESSES['westlake']:
-            if i == x['business_id']:
-                lijstje.append(x)
-    return lijstje
+
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
@@ -101,6 +91,20 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             adress:str
         }
     """
-    return(recommendations('wTNWq7jrCZD1q2hSjUtTXg'))
+    if business_id == None:
+        return random.sample(lijst, 10)
 
-recommend(None, 'wTNWq7jrCZD1q2hSjUtTXg')
+# input van random sample moet een lijst van restaurants zijn
+
+    hallo = dict()
+    for i in df_similarity_categories:
+        hallo[i] = df_similarity_categories[business_id][i]
+    test = sorted(hallo, key=hallo.get, reverse=True)
+    lijstje = []
+    for i in test:
+        for x in BUSINESSES['westlake']:
+            if i == x['business_id']:
+                lijstje.append(x)
+    return lijstje
+
+#recommend(business_id='wTNWq7jrCZD1q2hSjUtTXg')
