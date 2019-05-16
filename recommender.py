@@ -105,6 +105,7 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             continue
         else:
             hallo[i] = df_similarity_categories[business_id][i]
+    print(hallo)
     test = sorted(hallo, key=hallo.get, reverse=True)
     lijstje = []
     for i in test:
@@ -113,4 +114,4 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
                 lijstje.append(x)
     return lijstje[0:10]
 
-#recommend(business_id='wTNWq7jrCZD1q2hSjUtTXg')
+recommend(business_id='4TFm4xk1y3lSeInw0r0ALA')
