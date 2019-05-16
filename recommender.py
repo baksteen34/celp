@@ -7,10 +7,13 @@ import pandas as pd
 
 lijst = []
 # filter door de BUSINESSES, haal geopende Restaurants eruit
-for x in BUSINESSES['westlake']:
-    for j in x['categories'].split(','):
-        if j == 'Restaurants':
-            lijst.append(x)
+for x in BUSINESSES['cleveland']:
+    try:
+        for j in x['categories'].split(','):
+            if j == 'Restaurants':
+                lijst.append(x)
+    except:
+        continue
 
     for j in lijst:
         if j['is_open'] == 0:
@@ -102,7 +105,7 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     test = sorted(hallo, key=hallo.get, reverse=True)
     lijstje = []
     for i in test:
-        for x in BUSINESSES['westlake']:
+        for x in BUSINESSES['cleveland']:
             if i == x['business_id']:
                 lijstje.append(x)
     return lijstje
