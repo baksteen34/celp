@@ -69,7 +69,6 @@ def pivot_categories(df):
 
 df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience'))
 df_utility_matrix = pivot_categories(df_categories)
-
 def create_similarity_matrix_categories(matrix):
     """Create a  """
     npu = matrix.values
@@ -94,8 +93,14 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             adress:str
         }
     """
+    lijst3 = []
+    for j in lijst:
+        for i in df_similarity_categories:
+            if j['business_id'] == i:
+                lijst3.append(j)
+        
     if business_id == None:
-        return random.sample(lijst, 10)
+        return random.sample(lijst3, 10)
 
 # input van random sample moet een lijst van restaurants zijn
 
@@ -105,7 +110,6 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             continue
         else:
             hallo[i] = df_similarity_categories[business_id][i]
-    print(hallo)
     test = sorted(hallo, key=hallo.get, reverse=True)
     lijstje = []
     for i in test:
@@ -113,5 +117,4 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
             if i == x['business_id']:
                 lijstje.append(x)
     return lijstje[0:10]
-
-recommend(business_id='4TFm4xk1y3lSeInw0r0ALA')
+recommend(business_id='JezHN-9KKLTMbojq00VP0g')
