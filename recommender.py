@@ -48,7 +48,7 @@ def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorie
     drie = drie.rename(columns = {'index' : 'business_id'})
     return(drie)
 
-create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'BusinessParking')
+create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'HasTV')
 
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
@@ -72,9 +72,9 @@ def pivot_categories(df):
     Missing values are set to 0. This is technically not a 100% correct, but is more convenient
     for computation and does not have a big effect on the outcome.
     """
-    return df.pivot_table(index = 'business_id', columns = 'Ambience', aggfunc = 'size', fill_value=0)
+    return df.pivot_table(index = 'business_id', columns = 'features', aggfunc = 'size', fill_value=0)
 
-df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'BusinessParking'))
+df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'HasTV'))
 df_utility_matrix = pivot_categories(df_categories)
 
 def create_similarity_matrix_categories(matrix):
