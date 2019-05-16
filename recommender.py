@@ -101,7 +101,10 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
 
     hallo = dict()
     for i in df_similarity_categories:
-        hallo[i] = df_similarity_categories[business_id][i]
+        if i == business_id:
+            continue
+        else:
+            hallo[i] = df_similarity_categories[business_id][i]
     test = sorted(hallo, key=hallo.get, reverse=True)
     lijstje = []
     for i in test:
