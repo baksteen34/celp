@@ -20,28 +20,32 @@ for x in BUSINESSES['cleveland']:
             lijst.remove(x)
 
 # filter subcategorieen uit lijst
-def filter(categorie, subcategorie):
+def filter(categorie, subcategorie, subcategorie2=None):
     data=dict()
     for i in lijst:
         try:
             test = i[categorie].get(subcategorie)
+            test2 = i[categorie].get(subcategorie2)
             test = ast.literal_eval(test)
+            test2 = ast.literal_eval(test2)
+            test3 = {**test, **test2}
             data[i['business_id']] = []
-            for k,v in test.items():
+            for k,v in test3.items():
                 if v == True:
                     data[i['business_id']].append(k)
         except:
             continue
     return data
+
     # maak dataframe gefilterd op subcategorie
-def create_filter_dataframe(categorie, subcategorie):
-    data = filter(categorie, subcategorie)
+def create_filter_dataframe(categorie, subcategorie, subcategorie2=None):
+    data = filter(categorie, subcategorie, subcategorie2)
     data2 = pd.Series(data)
     drie = data2.to_frame(subcategorie).reset_index()
     drie = drie.rename(columns = {'index' : 'business_id'})
     return(drie)
 
-create_filter_dataframe('attributes', 'Ambience')
+create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal')
 
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
@@ -67,8 +71,9 @@ def pivot_categories(df):
     """
     return df.pivot_table(index = 'business_id', columns = 'Ambience', aggfunc = 'size', fill_value=0)
 
-df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience'))
+df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal'))
 df_utility_matrix = pivot_categories(df_categories)
+
 def create_similarity_matrix_categories(matrix):
     """Create a  """
     npu = matrix.values
@@ -78,7 +83,6 @@ def create_similarity_matrix_categories(matrix):
     m3 = np.minimum(m2, m2.T)
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
 df_similarity_categories = create_similarity_matrix_categories(df_utility_matrix)
-
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
@@ -98,7 +102,7 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
         for i in df_similarity_categories:
             if j['business_id'] == i:
                 lijst3.append(j)
-        
+
     if business_id == None:
         return random.sample(lijst3, 10)
 
