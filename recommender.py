@@ -111,6 +111,6 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
         for x in BUSINESSES['cleveland']:
             if i == x['business_id']:
                 lijstje.append(x)
-    return lijstje
+    return lijstje[0:10]
 
 #recommend(business_id='wTNWq7jrCZD1q2hSjUtTXg')
