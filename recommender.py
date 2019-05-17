@@ -6,6 +6,7 @@ import ast
 import pandas as pd
 
 lijst = []
+
 # filter door de BUSINESSES, haal geopende Restaurants eruit
 for x in BUSINESSES['cleveland']:
     try:
@@ -20,17 +21,15 @@ for x in BUSINESSES['cleveland']:
             lijst.remove(x)
 
 # filter subcategorieen uit lijst
-def filter(categorie, subcategorie, subcategorie2,subcategorie3):
+def filter(categorie, subcategorie, subcategorie2):
     data=dict()
     for i in lijst:
         try:
             test = i[categorie].get(subcategorie)
             test2 = i[categorie].get(subcategorie2)
-            test3 = i[categorie].get(subcategorie3)
             test = ast.literal_eval(test)
             test2 = ast.literal_eval(test2)
-            test3= ast.literal_eval(test3)
-            test4 = {**test, **test2, **test3}
+            test4 = {**test, **test2}
             data[i['business_id']] = []
             for k,v in test4.items():
                 if v == True:
@@ -40,15 +39,14 @@ def filter(categorie, subcategorie, subcategorie2,subcategorie3):
     return data
 
     # maak dataframe gefilterd op subcategorie
-def create_filter_dataframe(categorie, subcategorie, subcategorie2,subcategorie3):
-    data = filter(categorie, subcategorie, subcategorie2, subcategorie3)
+def create_filter_dataframe(categorie, subcategorie, subcategorie2):
+    data = filter(categorie, subcategorie, subcategorie2)
     data2 = pd.Series(data)
     drie = data2.to_frame(subcategorie).reset_index()
     drie = drie.rename(columns = {'index' : 'business_id'})
     return(drie)
 
-
-create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'BusinessParking')
+create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal')
 
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
@@ -74,7 +72,7 @@ def pivot_categories(df):
     """
     return df.pivot_table(index = 'business_id', columns = 'Ambience', aggfunc = 'size', fill_value=0)
 
-df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal','BusinessParking'))
+df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal'))
 df_utility_matrix = pivot_categories(df_categories)
 
 def create_similarity_matrix_categories(matrix):
@@ -126,9 +124,22 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     return lijstje[0:10]
 recommend(business_id='JezHN-9KKLTMbojq00VP0g')
 
-def test():
-    for i in REVIEWS:
-        print(i) # van het geklikte Restaurant
+
+ # van het geklikte Restaurant
         # van de 10 aanbevolen Restaurants
         #verelijk deze ratings met elkaar
-test()
+stars_dict = dict()
+review_dict = dict()
+def test():
+    #for i in REVIEWS['cleveland']:
+    #    stars_dict.append(i['stars'])
+    #return stars_dict
+#     for i in REVIEWS['brooklyn']:
+#         review_dict[i['review_id']] = i['stars']
+#
+# #   for j in REVIEWS['brooklyn']:
+# #        stars_dict[i['business_id']] = review_dict"
+#     return review_dict
+    for i in REVIEWS['brooklyn']:
+        print(i['user_id'])
+print(test())
