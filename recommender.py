@@ -68,10 +68,70 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4
             test15 = i[categorie].get(subcategorietje15)
             test16 = i[categorie].get(subcategorietje16)
             # test17 = {**test, **test2, **test3, **test4, **test5, **test6, **test7, **test8, **test9, **test10, **test11, **test12, **test13, **test14, **test15, **test16}
+            if test == None:
+                test = False
+            if test == 'True':
+                hoi[i['business_id']].append(subcategorietje)
+            if test2 == None:
+                test2 = False
+            if test2 == 'True':
+                hoi[i['business_id']].append(subcategorietje2)
             if test3 == None:
                 test3 = False
             if test3 == 'True':
-                hoi[i['business_id']].append(subcategorie3)
+                hoi[i['business_id']].append(subcategorietje3)
+            if test4 == None:
+                test4 = False
+            if test4 == 'True':
+                hoi[i['business_id']].append(subcategorietje4)
+            if test5 == None:
+                test5 = False
+            if test5 == 'True':
+                hoi[i['business_id']].append(subcategorietje5)
+            if test6 == None:
+                test6 = False
+            if test6 == 'True':
+                hoi[i['business_id']].append(subcategorietje6)
+            if test7 == None:
+                test7 = False
+            if test7 == 'True':
+                hoi[i['business_id']].append(subcategorietje7)
+            if test8 == None:
+                test8 = False
+            if test8 == 'True':
+                hoi[i['business_id']].append(subcategorietje8)
+            if test9 == None:
+                test9 = False
+            if test9 == 'True':
+                hoi[i['business_id']].append(subcategorietje9)
+            if test10 == None:
+                test10 = False
+            if test10 == 'True':
+                hoi[i['business_id']].append(subcategorietje10)
+            if test11 == None:
+                test11 = False
+            if test11 == 'True':
+                hoi[i['business_id']].append(subcategorietje11)
+            if test12 == None:
+                test12 = False
+            if test12 == 'True':
+                hoi[i['business_id']].append(subcategorietje12)
+            if test13 == None:
+                test13 = False
+            if test13 == 'True':
+                hoi[i['business_id']].append(subcategorietje13)
+            if test14 == None:
+                test14 = False
+            if test14 == 'True':
+                hoi[i['business_id']].append(subcategorietje14)
+            if test15 == None:
+                test15 = False
+            if test15 == 'True':
+                hoi[i['business_id']].append(subcategorietje15)
+            if test16 == None:
+                test16 = False
+            if test16 == 'True':
+                hoi[i['business_id']].append(subcategorietje16)
         except:
             continue
     print(hoi)
