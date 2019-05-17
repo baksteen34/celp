@@ -7,8 +7,6 @@ import pandas as pd
 from collections import defaultdict
 
 lijst = []
-
-# filter door de BUSINESSES, haal geopende Restaurants eruit
 for x in BUSINESSES['cleveland']:
     try:
         for j in x['categories'].split(','):
@@ -21,7 +19,6 @@ for x in BUSINESSES['cleveland']:
         if j['is_open'] == 0:
             lijst.remove(x)
 
-# filter subcategorieen uit lijst
 def filter(categorie, subcategorie, subcategorie2):
     data=dict()
     for i in lijst:
@@ -30,7 +27,6 @@ def filter(categorie, subcategorie, subcategorie2):
             test2 = i[categorie].get(subcategorie2)
             test = ast.literal_eval(test)
             test2 = ast.literal_eval(test2)
-            #print(type(test))
             test4 = {**test, **test2}
             data[i['business_id']] = []
             for k,v in test4.items():
@@ -39,7 +35,9 @@ def filter(categorie, subcategorie, subcategorie2):
         except:
             continue
     return data
+
 filter("attributes", "Ambience", "GoodForMeal")
+
 def filter2(categorie, subcategorie, subcategorie2, subcategorietje):
     hoi = filter(categorie, subcategorie, subcategorie2)
     for i in lijst:
@@ -53,7 +51,7 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorietje):
         except:
             continue
     return hoi
-    # maak dataframe gefilterd op subcategorie
+
 def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorietje):
     data = filter2(categorie,subcategorie, subcategorie2, subcategorietje)
     data2 = pd.Series(data)
@@ -63,6 +61,7 @@ def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorie
 
 hallo = create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'HasTV')
 print(hallo)
+
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
     Arguments:
@@ -98,6 +97,7 @@ def create_similarity_matrix_categories(matrix):
     m2 = m1 / diag
     m3 = np.minimum(m2, m2.T)
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
+
 df_similarity_categories = create_similarity_matrix_categories(df_utility_matrix)
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
@@ -122,15 +122,15 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     if business_id == None:
         return random.sample(lijst3, 10)
 
-# input van random sample moet een lijst van restaurants zijn
-
     hallo = dict()
     for i in df_similarity_categories:
         if i == business_id:
             continue
         else:
             hallo[i] = df_similarity_categories[business_id][i]
+
     test = sorted(hallo, key=hallo.get, reverse=True)
+
     lijstje = []
     for i in test:
         for x in BUSINESSES['cleveland']:
@@ -151,23 +151,29 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
                     final.append(x)
 
     final = final[0:10]
-
     return final
 
-recommend(business_id='9IJ-TE4HEcAJQkUtc1A_Vw')
-
-stars_dict = dict()
-review_dict = dict()
-def test(user_id):
-    #for i in REVIEWS['cleveland']:
-    #    stars_dict.append(i['stars'])
-    #return stars_dict
-#     for i in REVIEWS['brooklyn']:
-#         review_dict[i['review_id']] = i['stars']
-#
-# #   for j in REVIEWS['brooklyn']:
-# #        stars_dict[i['business_id']] = review_dict"
-#     return review_dict
+def test(user_id, business_id):
     for i in REVIEWS['cleveland']:
         if i['user_id'] == user_id:
-            print(i['business_id'], i['stars'])
+            if i['business_id'] == business_id:
+                aangeklikt = int(i['stars'])
+                print("Aangeklikt =", aangeklikt)
+
+    gemiddeld_10 = 0
+    teller = 0
+    for i in recommend(business_id=business_id):
+        for j in REVIEWS['cleveland']:
+            if j['business_id'] == i['business_id']:
+                if j['user_id'] == user_id:
+                    gemiddeld_10 += int(j['stars'])
+                    teller += 1
+
+    if teller == 0:
+        print("Geen ratings van de top10 gevonden door deze user")
+    else:
+        afwijking = aangeklikt - (gemiddeld_10/teller)
+        print("Aantal gereviewde restaurants uit de top10 door deze user=", teller)
+        print("De gemiddelde afwijking van de aangeklikte=", afwijking)
+
+test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
