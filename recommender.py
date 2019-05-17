@@ -4,6 +4,7 @@ import random
 import numpy as np
 import ast
 import pandas as pd
+from collections import defaultdict
 
 lijst = []
 
@@ -27,7 +28,6 @@ def filter(categorie, subcategorie, subcategorie2):
         try:
             test = i[categorie].get(subcategorie)
             test2 = i[categorie].get(subcategorie2)
-            print(test)
             test = ast.literal_eval(test)
             test2 = ast.literal_eval(test2)
             #print(type(test))
@@ -38,19 +38,31 @@ def filter(categorie, subcategorie, subcategorie2):
                     data[i['business_id']].append(k)
         except:
             continue
-    print(data)
     return data
 filter("attributes", "Ambience", "GoodForMeal")
+def filter2(categorie, subcategorie, subcategorie2, subcategorietje):
+    hoi = filter(categorie, subcategorie, subcategorie2)
+    for i in lijst:
+        try:
+            test = i[categorie].get(subcategorietje)
+            if test == None:
+                test = False
+            if test == 'True':
+                hoi[i['business_id']].append(subcategorietje)
+
+        except:
+            continue
+    return hoi
     # maak dataframe gefilterd op subcategorie
-def create_filter_dataframe(categorie, subcategorie, subcategorie2):
-    data = filter(categorie, subcategorie, subcategorie2)
+def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorietje):
+    data = filter2(categorie,subcategorie, subcategorie2, subcategorietje)
     data2 = pd.Series(data)
     drie = data2.to_frame(subcategorie).reset_index()
     drie = drie.rename(columns = {'index' : 'business_id'})
     return(drie)
 
-create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal')
-
+hallo = create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'HasTV')
+print(hallo)
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
     Arguments:
@@ -75,7 +87,7 @@ def pivot_categories(df):
     """
     return df.pivot_table(index = 'business_id', columns = 'Ambience', aggfunc = 'size', fill_value=0)
 
-df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal'))
+df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'HasTV'))
 df_utility_matrix = pivot_categories(df_categories)
 
 def create_similarity_matrix_categories(matrix):
@@ -159,6 +171,3 @@ def test(user_id):
     for i in REVIEWS['cleveland']:
         if i['user_id'] == user_id:
             print(i['business_id'], i['stars'])
-
-
-print(test('l6BmjZMeQD3rDxWUbiAiow'))
