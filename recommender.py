@@ -121,6 +121,7 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
         for x in BUSINESSES['cleveland']:
             if i == x['business_id']:
                 lijstje.append(x)
+<<<<<<< HEAD
     return lijstje[0:10]
 recommend(business_id='JezHN-9KKLTMbojq00VP0g')
 
@@ -143,3 +144,24 @@ def test():
     for i in REVIEWS['brooklyn']:
         print(i['user_id'])
 print(test())
+=======
+
+    for x in lijst:
+        if x['business_id'] == business_id:
+            for y, z in x['attributes'].items():
+                if y == 'RestaurantsPriceRange2':
+                    prijs = int(z)
+
+    final = []
+    for x in lijstje:
+        for y, z in x['attributes'].items():
+            if y == 'RestaurantsPriceRange2':
+                if int(z) == prijs or int(z) == (prijs + 1) or int(z) == (prijs - 1):
+                    final.append(x)
+
+    final = final[0:10]
+
+    return final
+
+recommend(business_id='9IJ-TE4HEcAJQkUtc1A_Vw')
+>>>>>>> eaaebaeb15e45a7c51df8c58cf2432966ce38e0d
