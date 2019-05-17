@@ -6,8 +6,16 @@ import ast
 import pandas as pd
 from collections import defaultdict
 
+subcategorieën = ['ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
+'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck']
+
+dict_subcategorieën: ['Music', 'Ambience', 'BusinessParking', 'GoodForMeal']
+
+
 lijst = []
+
 for x in BUSINESSES['cleveland']:
+    print(np.unique(x['attributes']))
     try:
         for j in x['categories'].split(','):
             if j == 'Restaurants':
@@ -19,27 +27,31 @@ for x in BUSINESSES['cleveland']:
         if j['is_open'] == 0:
             lijst.remove(x)
 
-def filter(categorie, subcategorie, subcategorie2):
+def filter(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16):
     data=dict()
     for i in lijst:
         try:
             test = i[categorie].get(subcategorie)
             test2 = i[categorie].get(subcategorie2)
+            test3 = i[categorie].get(subcategorie3)
+            test4 = i[categorie].get(subcategorie4)
             test = ast.literal_eval(test)
             test2 = ast.literal_eval(test2)
-            test4 = {**test, **test2}
+            test3 = ast.literal_eval(test3)
+            test4 = ast.literal_eval(test4)
+            test5 = {**test, **test2, **test3, **test4}
+            print(test5)
             data[i['business_id']] = []
-            for k,v in test4.items():
+            for k,v in test5.items():
                 if v == True:
                     data[i['business_id']].append(k)
         except:
             continue
     return data
+    filter('Music', 'Ambience', 'BusinessParking', 'GoodForMeal')
 
-filter("attributes", "Ambience", "GoodForMeal")
-
-def filter2(categorie, subcategorie, subcategorie2, subcategorietje):
-    hoi = filter(categorie, subcategorie, subcategorie2)
+def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16):
+    hoi = filter(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16)
     for i in lijst:
         try:
             test = i[categorie].get(subcategorietje)
@@ -52,14 +64,15 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorietje):
             continue
     return hoi
 
-def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorietje):
-    data = filter2(categorie,subcategorie, subcategorie2, subcategorietje)
+def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16):
+    data = filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16)
     data2 = pd.Series(data)
     drie = data2.to_frame(subcategorie).reset_index()
     drie = drie.rename(columns = {'index' : 'business_id'})
     return(drie)
 
-hallo = create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'HasTV')
+hallo = create_filter_dataframe('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal', 'ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
+'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck')
 print(hallo)
 
 def extract_subcategories(categorie):
