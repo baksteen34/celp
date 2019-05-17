@@ -45,7 +45,11 @@ def create_filter_dataframe(categorie, subcategorie, subcategorie2):
     drie = drie.rename(columns = {'index' : 'business_id'})
     return(drie)
 
+<<<<<<< HEAD
 create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal')
+=======
+create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'BusinessParking')
+>>>>>>> ec7ff1c1b5cbcc5ba435fdff527edb2fb0db3d66
 
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
