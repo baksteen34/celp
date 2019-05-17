@@ -78,7 +78,6 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4
 
         except:
             continue
-    print(hoi)
     return hoi
     filter2('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal', 'ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
     'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck')
@@ -93,7 +92,6 @@ def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorie
 
 hallo = create_filter_dataframe('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal', 'ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
 'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck')
-#print(hallo)
 
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
@@ -102,7 +100,7 @@ def extract_subcategories(categorie):
     Output:
     a matrix containing a rating in each cell
     """
-    categorie_m = categorie.apply(lambda row: pd.Series([row['business_id']] + row['Ambience']), axis=1)
+    categorie_m = categorie.apply(lambda row: pd.Series([row['business_id']] + row['Music']), axis=1)
     stack_categorie = categorie_m.set_index(0).stack()
     df_stack_categorie = stack_categorie.to_frame()
     df_stack_categorie['business_id'] = stack_categorie.index.droplevel(1)
@@ -133,7 +131,7 @@ def create_similarity_matrix_categories(matrix):
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
 
 df_similarity_categories = create_similarity_matrix_categories(df_utility_matrix)
-
+print(df_utility_matrix)
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
     Returns n recommendations as a list of dicts.
@@ -210,4 +208,4 @@ def test(user_id, business_id):
         print("Aantal gereviewde restaurants uit de top10 door deze user=", teller)
         print("De gemiddelde afwijking van de aangeklikte=", afwijking)
 
-test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
+# test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
