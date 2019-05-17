@@ -27,8 +27,10 @@ def filter(categorie, subcategorie, subcategorie2):
         try:
             test = i[categorie].get(subcategorie)
             test2 = i[categorie].get(subcategorie2)
+            print(test)
             test = ast.literal_eval(test)
             test2 = ast.literal_eval(test2)
+            #print(type(test))
             test4 = {**test, **test2}
             data[i['business_id']] = []
             for k,v in test4.items():
@@ -36,8 +38,9 @@ def filter(categorie, subcategorie, subcategorie2):
                     data[i['business_id']].append(k)
         except:
             continue
+    print(data)
     return data
-
+filter("attributes", "Ambience", "GoodForMeal")
     # maak dataframe gefilterd op subcategorie
 def create_filter_dataframe(categorie, subcategorie, subcategorie2):
     data = filter(categorie, subcategorie, subcategorie2)
@@ -156,6 +159,6 @@ def test(user_id):
     for i in REVIEWS['cleveland']:
         if i['user_id'] == user_id:
             print(i['business_id'], i['stars'])
-    
+
 
 print(test('l6BmjZMeQD3rDxWUbiAiow'))

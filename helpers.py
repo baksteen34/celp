@@ -21,12 +21,15 @@ for x in BUSINESSES['cleveland']:
             lijst.remove(x)
 def filter(categorie, subcategorie):
     data=dict()
-    for i in lijst:
-        test = i[categorie].get(subcategorie)
-        test = ast.literal_eval(test)
-        print(test)
-    while test == True:
-        data[i['business_id']] = test
+    try:
+        for i in lijst:
+            test = i[categorie].get(subcategorie)
+            print(type(test))
+            test = bool(test)
+            while test == True:
+                data[i['business_id']] = test
+    except:
+            break
     return data
 filter('attributes','HasTV')
 
