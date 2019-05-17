@@ -11,9 +11,7 @@ subcategorieën = ['ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKi
 
 dict_subcategorieën: ['Music', 'Ambience', 'BusinessParking', 'GoodForMeal']
 
-
 lijst = []
-
 for x in BUSINESSES['cleveland']:
     try:
         for j in x['categories'].split(','):
@@ -204,8 +202,14 @@ def test(user_id, business_id):
     if teller == 0:
         print("Geen ratings van de top10 gevonden door deze user")
     else:
-        afwijking = aangeklikt - (gemiddeld_10/teller)
+        afwijking = round(aangeklikt - (gemiddeld_10/teller), 2)
         print("Aantal gereviewde restaurants uit de top10 door deze user=", teller)
-        print("De gemiddelde afwijking van de aangeklikte=", afwijking)
+        print("De gemiddelde afwijking van de aangeklikte vergeleken met ratings van dezelfde user =", afwijking)
+
+    willekeurig = 0
+    for i in range(10):
+        willekeurig += int(random.choice(lijst)['stars'])
+    afwijking2 = round(aangeklikt - (willekeurig/10), 2)
+    print("De gemiddelde afwijking van de aangeklikte vergeleken met willekeurige ratings =", afwijking2)
 
 # test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
