@@ -40,7 +40,6 @@ def filter(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4,
             test3 = ast.literal_eval(test3)
             test4 = ast.literal_eval(test4)
             test5 = {**test, **test2, **test3, **test4}
-            print(test5)
             data[i['business_id']] = []
             for k,v in test5.items():
                 if v == True:
@@ -55,6 +54,21 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4
     for i in lijst:
         try:
             test = i[categorie].get(subcategorietje)
+            test = i[categorie].get(subcategorietje2)
+            test = i[categorie].get(subcategorietje3)
+            test = i[categorie].get(subcategorietje4)
+            test = i[categorie].get(subcategorietje5)
+            test = i[categorie].get(subcategorietje6)
+            test = i[categorie].get(subcategorietje7)
+            test = i[categorie].get(subcategorietje8)
+            test = i[categorie].get(subcategorietje9)
+            test = i[categorie].get(subcategorietje10)
+            test = i[categorie].get(subcategorietje11)
+            test12 = i[categorie].get(subcategorietje12)
+            test13 = i[categorie].get(subcategorietje13)
+            test14 = i[categorie].get(subcategorietje14)
+            test15 = i[categorie].get(subcategorietje15)
+            test16 = i[categorie].get(subcategorietje16)
             if test == None:
                 test = False
             if test == 'True':
