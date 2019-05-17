@@ -121,30 +121,6 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
         for x in BUSINESSES['cleveland']:
             if i == x['business_id']:
                 lijstje.append(x)
-<<<<<<< HEAD
-    return lijstje[0:10]
-recommend(business_id='JezHN-9KKLTMbojq00VP0g')
-
-
- # van het geklikte Restaurant
-        # van de 10 aanbevolen Restaurants
-        #verelijk deze ratings met elkaar
-stars_dict = dict()
-review_dict = dict()
-def test():
-    #for i in REVIEWS['cleveland']:
-    #    stars_dict.append(i['stars'])
-    #return stars_dict
-#     for i in REVIEWS['brooklyn']:
-#         review_dict[i['review_id']] = i['stars']
-#
-# #   for j in REVIEWS['brooklyn']:
-# #        stars_dict[i['business_id']] = review_dict"
-#     return review_dict
-    for i in REVIEWS['brooklyn']:
-        print(i['user_id'])
-print(test())
-=======
 
     for x in lijst:
         if x['business_id'] == business_id:
@@ -164,4 +140,22 @@ print(test())
     return final
 
 recommend(business_id='9IJ-TE4HEcAJQkUtc1A_Vw')
->>>>>>> eaaebaeb15e45a7c51df8c58cf2432966ce38e0d
+
+stars_dict = dict()
+review_dict = dict()
+def test():
+    #for i in REVIEWS['cleveland']:
+    #    stars_dict.append(i['stars'])
+    #return stars_dict
+#     for i in REVIEWS['brooklyn']:
+#         review_dict[i['review_id']] = i['stars']
+#
+# #   for j in REVIEWS['brooklyn']:
+# #        stars_dict[i['business_id']] = review_dict"
+#     return review_dict
+    recommend()
+    for i in REVIEWS['brooklyn']:
+        print(i['user_id'])
+    return 0
+
+print(test())
