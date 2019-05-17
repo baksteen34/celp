@@ -15,7 +15,6 @@ dict_subcategorieën: ['Music', 'Ambience', 'BusinessParking', 'GoodForMeal']
 lijst = []
 
 for x in BUSINESSES['cleveland']:
-    print(np.unique(x['attributes']))
     try:
         for j in x['categories'].split(','):
             if j == 'Restaurants':
@@ -47,36 +46,43 @@ def filter(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4,
         except:
             continue
     return data
-    filter('Music', 'Ambience', 'BusinessParking', 'GoodForMeal')
+    filter('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal')
 
 def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16):
+    subcategorietjeslijst = [subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16]
     hoi = filter(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16)
     for i in lijst:
         try:
             test = i[categorie].get(subcategorietje)
-            test = i[categorie].get(subcategorietje2)
-            test = i[categorie].get(subcategorietje3)
-            test = i[categorie].get(subcategorietje4)
-            test = i[categorie].get(subcategorietje5)
-            test = i[categorie].get(subcategorietje6)
-            test = i[categorie].get(subcategorietje7)
-            test = i[categorie].get(subcategorietje8)
-            test = i[categorie].get(subcategorietje9)
-            test = i[categorie].get(subcategorietje10)
-            test = i[categorie].get(subcategorietje11)
+            test2 = i[categorie].get(subcategorietje2)
+            test3 = i[categorie].get(subcategorietje3)
+            test4 = i[categorie].get(subcategorietje4)
+            test5 = i[categorie].get(subcategorietje5)
+            test6 = i[categorie].get(subcategorietje6)
+            test7 = i[categorie].get(subcategorietje7)
+            test8 = i[categorie].get(subcategorietje8)
+            test9 = i[categorie].get(subcategorietje9)
+            test10 = i[categorie].get(subcategorietje10)
+            test11 = i[categorie].get(subcategorietje11)
             test12 = i[categorie].get(subcategorietje12)
             test13 = i[categorie].get(subcategorietje13)
             test14 = i[categorie].get(subcategorietje14)
             test15 = i[categorie].get(subcategorietje15)
             test16 = i[categorie].get(subcategorietje16)
-            if test == None:
-                test = False
-            if test == 'True':
-                hoi[i['business_id']].append(subcategorietje)
+            test17 = {**test, **test2, **test3, **test4, **test5, **test6, **test7, **test8, **test9, **test10, **test11, **test12, **test13, **test14, **test15, **test16}
+            if test17 == None:
+                test17 = False
+            for i in subcategorietjeslijst:
+                if test17 == 'True':
+                    hoi[i['business_id']].append(i)
 
         except:
             continue
+    print(hoi)
     return hoi
+    filter2('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal', 'ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
+    'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck')
+
 
 def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16):
     data = filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4, subcategorietje, subcategorietje2, subcategorietje3, subcategorietje4, subcategorietje5, subcategorietje6, subcategorietje7, subcategorietje8, subcategorietje9, subcategorietje10, subcategorietje11, subcategorietje12, subcategorietje13, subcategorietje14, subcategorietje15, subcategorietje16)
@@ -87,7 +93,7 @@ def create_filter_dataframe(categorie, subcategorie, subcategorie2, subcategorie
 
 hallo = create_filter_dataframe('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal', 'ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
 'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck')
-print(hallo)
+#print(hallo)
 
 def extract_subcategories(categorie):
     """Creates a utility matrix for subcategories
@@ -113,7 +119,8 @@ def pivot_categories(df):
     """
     return df.pivot_table(index = 'business_id', columns = 'Ambience', aggfunc = 'size', fill_value=0)
 
-df_categories = extract_subcategories(create_filter_dataframe('attributes', 'Ambience', 'GoodForMeal', 'HasTV'))
+df_categories = extract_subcategories(create_filter_dataframe('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal','ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
+'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck'))
 df_utility_matrix = pivot_categories(df_categories)
 
 def create_similarity_matrix_categories(matrix):
