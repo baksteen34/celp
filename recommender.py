@@ -67,15 +67,14 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4
             test14 = i[categorie].get(subcategorietje14)
             test15 = i[categorie].get(subcategorietje15)
             test16 = i[categorie].get(subcategorietje16)
-            test17 = {**test, **test2, **test3, **test4, **test5, **test6, **test7, **test8, **test9, **test10, **test11, **test12, **test13, **test14, **test15, **test16}
-            if test17 == None:
-                test17 = False
-            for i in subcategorietjeslijst:
-                if test17 == 'True':
-                    hoi[i['business_id']].append(i)
-
+            # test17 = {**test, **test2, **test3, **test4, **test5, **test6, **test7, **test8, **test9, **test10, **test11, **test12, **test13, **test14, **test15, **test16}
+            if test3 == None:
+                test3 = False
+            if test3 == 'True':
+                hoi[i['business_id']].append(subcategorie3)
         except:
             continue
+    print(hoi)
     return hoi
     filter2('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal', 'ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
     'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck')
