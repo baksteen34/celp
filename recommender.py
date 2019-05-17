@@ -143,7 +143,7 @@ recommend(business_id='9IJ-TE4HEcAJQkUtc1A_Vw')
 
 stars_dict = dict()
 review_dict = dict()
-def test():
+def test(user_id):
     #for i in REVIEWS['cleveland']:
     #    stars_dict.append(i['stars'])
     #return stars_dict
@@ -153,9 +153,9 @@ def test():
 # #   for j in REVIEWS['brooklyn']:
 # #        stars_dict[i['business_id']] = review_dict"
 #     return review_dict
-    recommend()
-    for i in REVIEWS['brooklyn']:
-        print(i['user_id'])
-    return 0
+    for i in REVIEWS['cleveland']:
+        if i['user_id'] == user_id:
+            print(i['business_id'], i['stars'])
+    
 
-print(test())
+print(test('l6BmjZMeQD3rDxWUbiAiow'))
