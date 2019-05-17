@@ -271,4 +271,15 @@ def test(user_id, business_id):
     afwijking2 = round(aangeklikt - (willekeurig/10), 2)
     print("De gemiddelde afwijking van de aangeklikte vergeleken met willekeurige ratings =", afwijking2)
 
-# test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
+reviews_lijst = []
+reviews = dict()
+
+for review in REVIEWS['cleveland']:
+    business_id = review['business_id']
+    for bedrijf in lijst:
+        if bedrijf['business_id'] == business_id:
+            business_id = bedrijf['business_id']
+            user_id = review['user_id']
+            test(user_id, business_id)
+
+#test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
