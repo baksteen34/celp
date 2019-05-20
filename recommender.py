@@ -6,10 +6,10 @@ import ast
 import pandas as pd
 from collections import defaultdict
 
-subcategorieën = ['ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
-'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck']
+#subcategorieën = ['ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
+#'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck']
 
-dict_subcategorieën: ['Music', 'Ambience', 'BusinessParking', 'GoodForMeal']
+#dict_subcategorieën: ['Music', 'Ambience', 'BusinessParking', 'GoodForMeal']
 
 lijst = []
 for x in BUSINESSES['cleveland']:
@@ -275,11 +275,15 @@ reviews_lijst = []
 reviews = dict()
 
 for review in REVIEWS['cleveland']:
-    business_id = review['business_id']
-    for bedrijf in lijst:
-        if bedrijf['business_id'] == business_id:
-            business_id = bedrijf['business_id']
-            user_id = review['user_id']
-            test(user_id, business_id)
+     business_id = review['business_id']
+     for bedrijf in lijst:
+         if bedrijf['business_id'] == business_id:
+             try:
+                 business_id = bedrijf['business_id']
+                 user_id = review['user_id']
+                 test(user_id, business_id)
+             except:
+                 continue
+
 
 #test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
