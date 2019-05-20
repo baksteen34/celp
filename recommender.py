@@ -283,7 +283,7 @@ for review in REVIEWS['cleveland']:
                  user_id = review['user_id']
                  test(user_id, business_id)
              except:
-                 continue
+                 continue 
 
 
 #test('XsKL7KGNXL1r_YTxXuUWkA', '9IJ-TE4HEcAJQkUtc1A_Vw')
