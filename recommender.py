@@ -63,7 +63,6 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4
             test14 = i[categorie].get(subcategorietje14)
             test15 = i[categorie].get(subcategorietje15)
             test16 = i[categorie].get(subcategorietje16)
-            # test17 = {**test, **test2, **test3, **test4, **test5, **test6, **test7, **test8, **test9, **test10, **test11, **test12, **test13, **test14, **test15, **test16}
             if test == None:
                 test = False
             if test == 'True':
@@ -241,56 +240,7 @@ def test(business_id):
     totale_teller = 0
     totale_afwijking = 0
     totale_random_afwijking = 0
-<<<<<<< HEAD
     lijstjes = set()
-    for user in USERS['cleveland'][0:10]:
-        for review in REVIEWS['cleveland']:
-            try:
-                if user == review['user_id']:
-                    print('hoiii')
-                    print(user)
-                    lijstjes.add(user)
-                    user_id = review['user_id']
-                    for i in REVIEWS['cleveland']:
-                        if i['user_id'] == user_id:
-                            if i['business_id'] == business_id:
-                                aangeklikt = int(i['stars'])
-
-                    teller = 0
-                    gemiddeld_10 = 0
-
-                    for i in recommend(business_id=business_id):
-
-                        for j in REVIEWS['cleveland']:
-                            if j['business_id'] == i['business_id']:
-                                if j['user_id'] == user_id:
-                                    gemiddeld_10 += int(j['stars'])
-                                    teller += 1
-                    if teller == 0:
-                        a = 2
-
-                    else:
-                        afwijking = round(aangeklikt - (gemiddeld_10/teller), 2)
-                        totale_afwijking += afwijking
-
-                    willekeurig = 0
-                    for i in range(teller):
-                        willekeurig += int(random.choice(lijst)['stars'])
-                    afwijking2 = round(aangeklikt - (willekeurig/teller), 2)
-                    totale_random_afwijking += afwijking2
-                    teller = 0
-            except:
-                continue
-
-    print(lijstjes)
-    eind_afwijking = round(totale_afwijking/len(lijstjes), 2)
-    eind_random_afwijking = round(totale_afwijking/len(lijstjes), 2)
-
-    print("TOTALE AFWIJKING = ", eind_afwijking)
-    print("TOTALE AFWIJKING RANDOM = ", eind_random_afwijking)
-
-test('Yyag9ZHs0hZ7UIGFC04Vqw')
-=======
     for user in USERS['cleveland'][0:500]:
         try:
             user_id = user['user_id']
@@ -298,7 +248,6 @@ test('Yyag9ZHs0hZ7UIGFC04Vqw')
                 if i['user_id'] == user_id:
                     if i['business_id'] == business_id:
                         aangeklikt = int(i['stars'])
-                        # print("Aangeklikt =", aangeklikt)
 
             gemiddeld_10 = 0
             teller = 0
@@ -311,19 +260,19 @@ test('Yyag9ZHs0hZ7UIGFC04Vqw')
                             teller += 1
 
             if teller == 0:
-                a = 2
+                abc_test = 0
+
             else:
                 afwijking = round(aangeklikt - (gemiddeld_10/teller), 2)
-                # print("Aantal gereviewde restaurants uit de top10 door deze user=", teller)
-                # print("De gemiddelde afwijking van de aangeklikte vergeleken met ratings van dezelfde user =", afwijking)
+                if afwijking < 0:
+                    afwijking = afwijking * (-1)
                 totale_teller += 1
                 totale_afwijking += afwijking
 
             willekeurig = 0
             for i in range(teller):
-                willekeurig += randint(0, 5)
+                willekeurig += randint(0,5)
             afwijking2 = round(aangeklikt - (willekeurig/teller), 2)
-            # print("De gemiddelde afwijking van de aangeklikte vergeleken met willekeurige ratings =", afwijking2)
             totale_random_afwijking += afwijking2
 
         except:
@@ -334,5 +283,4 @@ test('Yyag9ZHs0hZ7UIGFC04Vqw')
     print("De totale voorspelde afwijking van ", totale_teller, "users, is:", totale_afwijking)
     print("De totale random afwijking van ", totale_teller, "users, is: ", totale_random_afwijking)
 
-# test('9IJ-TE4HEcAJQkUtc1A_Vw')
->>>>>>> 9384c77c5a89991c5b8ee455c3a97c21ceb48cba
+test('9IJ-TE4HEcAJQkUtc1A_Vw')
