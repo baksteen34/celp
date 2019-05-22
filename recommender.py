@@ -4,12 +4,8 @@ import random
 import numpy as np
 import ast
 import pandas as pd
+from random import randint
 from collections import defaultdict
-
-#subcategorieën = ['ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
-#'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck']
-
-#dict_subcategorieën: ['Music', 'Ambience', 'BusinessParking', 'GoodForMeal']
 
 lijst = []
 for x in BUSINESSES['cleveland']:
@@ -134,7 +130,6 @@ def filter2(categorie, subcategorie, subcategorie2, subcategorie3, subcategorie4
                 hoi[i['business_id']].append(subcategorietje16)
         except:
             continue
-    print(hoi)
     return hoi
     filter2('attributes','Music', 'Ambience', 'BusinessParking', 'GoodForMeal', 'ByAppointmentOnly', 'BusinessAcceptsCreditCards', 'GoodForKids', 'RestaurantsReservations', 'HasTV', 'RestaurantsTakeOut', 'OutdoorSeating', 'RestaurantsGoodForGroups', 'RestaurantsDelivery', 'BikeParking', 'Caters', 'LateNight',
     'BusinessAcceptsBitcoin', 'WheelchairAccessible', 'HappyHour', 'CoatCheck')
@@ -188,7 +183,7 @@ def create_similarity_matrix_categories(matrix):
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
 
 df_similarity_categories = create_similarity_matrix_categories(df_utility_matrix)
-print(df_utility_matrix)
+
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
     Returns n recommendations as a list of dicts.
@@ -246,6 +241,7 @@ def test(business_id):
     totale_teller = 0
     totale_afwijking = 0
     totale_random_afwijking = 0
+<<<<<<< HEAD
     lijstjes = set()
     for user in USERS['cleveland'][0:10]:
         for review in REVIEWS['cleveland']:
@@ -294,3 +290,49 @@ def test(business_id):
     print("TOTALE AFWIJKING RANDOM = ", eind_random_afwijking)
 
 test('Yyag9ZHs0hZ7UIGFC04Vqw')
+=======
+    for user in USERS['cleveland'][0:500]:
+        try:
+            user_id = user['user_id']
+            for i in REVIEWS['cleveland']:
+                if i['user_id'] == user_id:
+                    if i['business_id'] == business_id:
+                        aangeklikt = int(i['stars'])
+                        # print("Aangeklikt =", aangeklikt)
+
+            gemiddeld_10 = 0
+            teller = 0
+
+            for i in recommend(business_id):
+                for j in REVIEWS['cleveland']:
+                    if j['business_id'] == i['business_id']:
+                        if j['user_id'] == user_id:
+                            gemiddeld_10 += int(j['stars'])
+                            teller += 1
+
+            if teller == 0:
+                a = 2
+            else:
+                afwijking = round(aangeklikt - (gemiddeld_10/teller), 2)
+                # print("Aantal gereviewde restaurants uit de top10 door deze user=", teller)
+                # print("De gemiddelde afwijking van de aangeklikte vergeleken met ratings van dezelfde user =", afwijking)
+                totale_teller += 1
+                totale_afwijking += afwijking
+
+            willekeurig = 0
+            for i in range(teller):
+                willekeurig += randint(0, 5)
+            afwijking2 = round(aangeklikt - (willekeurig/teller), 2)
+            # print("De gemiddelde afwijking van de aangeklikte vergeleken met willekeurige ratings =", afwijking2)
+            totale_random_afwijking += afwijking2
+
+        except:
+            continue
+
+    totale_afwijking = round(totale_afwijking/totale_teller, 2)
+    totale_random_afwijking = round(totale_random_afwijking/totale_teller, 2)
+    print("De totale voorspelde afwijking van ", totale_teller, "users, is:", totale_afwijking)
+    print("De totale random afwijking van ", totale_teller, "users, is: ", totale_random_afwijking)
+
+# test('9IJ-TE4HEcAJQkUtc1A_Vw')
+>>>>>>> 9384c77c5a89991c5b8ee455c3a97c21ceb48cba
