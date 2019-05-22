@@ -242,58 +242,55 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     final = final[0:10]
     return final
 
-def test(user_id, business_id):
-    for i in REVIEWS['cleveland']:
-        if i['user_id'] == user_id:
-            if i['business_id'] == business_id:
-                aangeklikt = int(i['stars'])
-                print(user_id, business_id, "Aangeklikt =", aangeklikt)
+def test(business_id):
+    totale_teller = 0
+    totale_afwijking = 0
+    totale_random_afwijking = 0
+    lijstjes = set()
+    for user in USERS['cleveland'][0:10]:
+        for review in REVIEWS['cleveland']:
+            try:
+                if user == review['user_id']:
+                    print('hoiii')
+                    print(user)
+                    lijstjes.add(user)
+                    user_id = review['user_id']
+                    for i in REVIEWS['cleveland']:
+                        if i['user_id'] == user_id:
+                            if i['business_id'] == business_id:
+                                aangeklikt = int(i['stars'])
 
-    gemiddeld_10 = 0
-    teller = 0
+                    teller = 0
+                    gemiddeld_10 = 0
 
-    for i in recommend(business_id=business_id):
+                    for i in recommend(business_id=business_id):
 
-        for j in REVIEWS['cleveland']:
-            if j['business_id'] == i['business_id']:
-                if j['user_id'] == user_id:
-                    gemiddeld_10 += int(j['stars'])
-                    teller += 1
+                        for j in REVIEWS['cleveland']:
+                            if j['business_id'] == i['business_id']:
+                                if j['user_id'] == user_id:
+                                    gemiddeld_10 += int(j['stars'])
+                                    teller += 1
+                    if teller == 0:
+                        a = 2
 
-    if teller == 0:
-        #print("Geen ratings van de top10 gevonden door deze user")
-        a = 2
+                    else:
+                        afwijking = round(aangeklikt - (gemiddeld_10/teller), 2)
+                        totale_afwijking += afwijking
 
-    else:
-        afwijking = round(aangeklikt - (gemiddeld_10/teller), 2)
-        print("Aantal gereviewde restaurants uit de top10 door deze user=", teller)
-        print("De gemiddelde afwijking van de aangeklikte vergeleken met ratings van dezelfde user =", afwijking)
+                    willekeurig = 0
+                    for i in range(teller):
+                        willekeurig += int(random.choice(lijst)['stars'])
+                    afwijking2 = round(aangeklikt - (willekeurig/teller), 2)
+                    totale_random_afwijking += afwijking2
+                    teller = 0
+            except:
+                continue
 
-    willekeurig = 0
-    for i in range(teller):
-        willekeurig += int(random.choice(lijst)['stars'])
-    afwijking2 = round(aangeklikt - (willekeurig/teller), 2)
-    print("De gemiddelde afwijking van de aangeklikte vergeleken met willekeurige ratings =", afwijking2)
+    print(lijstjes)
+    eind_afwijking = round(totale_afwijking/len(lijstjes), 2)
+    eind_random_afwijking = round(totale_afwijking/len(lijstjes), 2)
 
-reviews_lijst = []
-reviews = dict()
+    print("TOTALE AFWIJKING = ", eind_afwijking)
+    print("TOTALE AFWIJKING RANDOM = ", eind_random_afwijking)
 
-# for review in REVIEWS['cleveland'][0:100]:
-#      business_id = review['business_id']
-#      for bedrijf in lijst:
-#          if bedrijf['business_id'] == business_id:
-#              try:
-#                  business_id = bedrijf['business_id']
-#                  user_id = review['user_id']
-#                  test(user_id, business_id)
-#              except:
-for user in USERS['cleveland']:
-    for review in REVIEWS['cleveland']:
-        try:
-            if user == review['user_id']:
-                user_id = review['user_id']
-                test(user_id, 'Yyag9ZHs0hZ7UIGFC04Vqw')
-        except:
-            continue
-
-#test('NfU0zDaTMEQ4-X9dbQWd9A', 'Yyag9ZHs0hZ7UIGFC04Vqw')
+test('Yyag9ZHs0hZ7UIGFC04Vqw')
